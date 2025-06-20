@@ -21,7 +21,7 @@ jobs:
 
       - name: Export codelab
         run: |
-          claat export codelab-deployment.md
+          claat export codelab.md
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
