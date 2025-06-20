@@ -99,6 +99,6 @@ Este repositorio incluye un archivo de workflow en `.github/workflows/deploy.yml
 
 No necesitas hacer nada manual más que subir tus cambios.
 
-> La primera vez que hagas push, será necesario configurar GitHub Pages en tu repositorio. Ve a la configuración del repositorio, busca la sección "Pages" y selecciona la rama `gh-pages` como fuente.
+> ⚠️ La primera vez que hagas push, será necesario configurar GitHub Pages en tu repositorio. Ve a la configuración del repositorio, busca la sección "Pages" y selecciona la rama `gh-pages` como fuente.
 
 ---
