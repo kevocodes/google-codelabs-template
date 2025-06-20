@@ -1,0 +1,29 @@
+name: Build and Deploy
+on: 
+  push:
+    branches: 
+      - main
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+ 
+      - name: Install claat
+        run: |
+          curl -Lo claat https://github.com/googlecodelabs/tools/releases/latest/download/claat-linux-amd64
+          chmod +x claat
+          sudo mv claat /usr/local/bin/claat
+
+
+      - name: Export codelab
+        run: |
+          claat export codelab-deployment.md
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: codelab-deployment
