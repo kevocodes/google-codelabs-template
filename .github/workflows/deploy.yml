@@ -27,16 +27,22 @@ jobs:
 
       - name: Inject custom script in index.html
         run: |
-          script='<script>
-          const fabs = document.querySelector("#fabs");
-          const done = document.querySelector("#done");
-          const codelabNavButtons = document.querySelector("#codelab-nav-buttons");
-          const arrowBack = document.querySelector("#arrow-back");
-          fabs.removeChild(done);
-          codelabNavButtons.removeChild(arrowBack);
-          </script>'
           file=codelab-deployment/index.html
-          sed -i "/<\/body>/i $script" "$file"
+          tmpfile=$(mktemp)
+
+          awk '/<\/body>/ {
+            print "<script>"
+            print "  const fabs = document.querySelector(\"#fabs\");"
+            print "  const done = document.querySelector(\"#done\");"
+            print "  const codelabNavButtons = document.querySelector(\"#codelab-nav-buttons\");"
+            print "  const arrowBack = document.querySelector(\"#arrow-back\");"
+            print "  fabs.removeChild(done);"
+            print "  codelabNavButtons.removeChild(arrowBack);"
+            print "</script>"
+          }
+          { print }' "$file" > "$tmpfile"
+
+          mv "$tmpfile" "$file"
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
